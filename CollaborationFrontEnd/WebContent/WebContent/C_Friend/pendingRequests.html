@@ -1,0 +1,27 @@
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Pending Requests</title>
+</head>
+<body>
+<h1 style="text-align: center;">Pending Requests</h1>
+<div ng-if="pendingRequest != null">
+<table>
+	<tr>
+		<th>Friend Name</th>
+		<th>Accept</th>
+		<th>Reject</th>
+	</tr>
+	
+	<tr ng-repeat="p in pendingRequest">
+		<td>{{p.userID}}</td>
+		<td><a href="" ng-click="acceptRequest(p.userID)">Accept Request</a></td>
+		<td><a href="" ng-click="rejectRequest(p.userID)">Reject Request</a></td>
+	</tr>
+</table>
+</div>
+<div ng-else>
+<h2>You have no pending friend requests.</h2>
+</div>
+</body>
+</html>

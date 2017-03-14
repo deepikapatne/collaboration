@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html data-ng-app = "Collaboration">
+<head>
+<meta charset="ISO-8859-1">
+<title>Collaboration Project</title>
+</head>
+<body>
+<div ng-controller="UserController as ctrl">
+<h1 style="text-align: center;">Collaboration Project</h1>
+<hr>
+<a href = "#/login">Login</a>
+<br>
+<a href = "#/register">SignUp</a>
+<br>
+<a href = "#/viewUsers">View All Users</a>		
+<br>
+<a href = "#/viewBlogs">View All Blogs</a>
+<br>
+<a href = "#/viewJobs">View Jobs</a>
+<br>
+<a href = "#/eventlist">Event List</a>
+<br>
+<a href = "#/event">Event</a>
+<br>
+<a href = "#/forumlist">Forum List</a>
+<br>
+<a href = "#/forum">Forum</a>
+<br>
+<a href = "#/ViewPendingRequest">View Pending Request</a>
+<br>
+<a href = "#/viewMyFriend">View friends</a>
+<br>
+<a href = "#/viewSentRequests">View Sent Requests</a>
+<br>
+<a ng-click = "ctrl.logout()">Logout</a>
+<br>
+<hr>
+
+<div data-ng-view></div>
+</div>
+</body>
+
+
+<script src="js/angular.min.js"></script>
+<script src="js/angular-route.js"></script>
+<script src="js/angular-cookies.js"></script>
+<script src="js/angular-cookies.min.js"></script>
+<script src="js/jquery-3.1.1.min.js"></script>
+
+<script src="js/app.js"></script>
+<script src="C_user/UserController.js"></script>
+<script src="C_user/UserService.js"></script>
+<script src="C_blog/BlogController.js"></script>
+<script src="C_blog/BlogService.js"></script>
+<script src="C_job/JobController.js"></script>
+<script src="C_job/JobService.js"></script>
+<script src="C_event/EventController.js"></script>
+<script src="C_event/EventService.js"></script>
+<script src="C_forum/ForumController.js"></script>
+<script src="C_forum/ForumService.js"></script>
+<script src="C_Friend/FriendController.js"></script>
+<script src="C_Friend/FriendService.js"></script>
+
+</html>

@@ -1,0 +1,26 @@
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Sent Requests</title>
+</head>
+<body>
+<h1 style="text-align: center;">Sent Requests</h1>
+<div ng-if="sentRequest != null">
+<table>
+	<tr>
+		<th>Friend Name</th>
+		<th>Cancel</th>
+	</tr>
+	
+	<tr ng-repeat="s in sentRequest">
+		<td>{{s.friendID}}</td>
+		<td><a href="#" ng-click="acceptRequest(s.userID)">Cancel Request</a></td>
+	</tr>
+</table>
+</div>
+<div ng-else>
+<h2>You have no pending sent requests.</h2>
+</div>
+
+</body>
+</html>

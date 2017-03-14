@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Register</title>
+</head>
+<body>
+Welcome to Registration Page
+<br>
+<div ng-controller = "UserController as ctrl">
+<form name="form" ng-submit="ctrl.registerUser()" role="form">
+<table>
+	<tr>
+		<td> Username: </td>
+		<td> <input type="text" ng-model="user.username" placeholder="Choose a Username" maxlength="50"> </td>
+	</tr>
+	
+	<tr>
+		<td> First Name: </td>
+		<td> <input type="text" ng-model="user.first_name"> </td>
+	</tr>
+	
+	<tr>
+		<td> Last Name: </td>
+		<td> <input type="text" ng-model="user.last_name"> </td>
+	</tr>
+	
+	<tr>
+		<td> Date of Birth: </td>
+		<td> <input type="date" ng-model="user.dob"> </td>
+	</tr>
+	
+	<tr>
+		<td> Gender: </td>
+		<td><input type="radio" ng-model='user.gender' name="user.gender" value="M" checked="checked" /> Male
+  			<input type="radio" ng-model="user.gender" name="user.gender" value="F" /> Female</td>
+	</tr>
+	
+	<tr>
+		<td> Mobile No: </td>
+		<td> <input type="text" ng-model="user.mobile_no" maxlength="10"> </td>
+	</tr>
+	
+	<tr>
+		<td> Place: </td>
+		<td> <input type="text" ng-model="user.place"> </td>
+	</tr>
+	
+	<tr>
+		<td> Mail ID: </td>
+		<td> <input type="text" ng-model="user.mail_id"> </td>
+	</tr>
+	
+	<tr>
+		<td> Password: </td>
+		<td> <input type="password" ng-model="user.password"> </td>
+	</tr>
+	
+	<tr>
+		<td> Role: </td>
+		<td> <input type="text" ng-model="user.role"> </td>
+	</tr>
+	
+	<tr>
+		<td style="text-align: center;"><td><input type="submit" value="Register"></td>
+		<td style="text-align: center;"><input type="reset" value="Clear"></td>
+	</tr>
+</table>
+</form>
+<hr>	
+	</div>
+</body>
+</html>

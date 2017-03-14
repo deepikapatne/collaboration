@@ -1,0 +1,24 @@
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>My Friends</title>
+</head>
+<body>
+<h1 style="text-align: center;">My Friends</h1>
+<div ng-if="friends != null">
+<table>
+	<tr>
+		<td>Name</td>
+		<td>Chat</td>
+	</tr>
+	<tr ng-repeat="f in friends">
+		<td>{{f}}</td>
+		<td><a href="#">Chat</a></td>
+	</tr>
+</table>
+</div>
+<div ng-else>
+<h2>You have no friends.</h2>
+</div>
+</body>
+</html>
