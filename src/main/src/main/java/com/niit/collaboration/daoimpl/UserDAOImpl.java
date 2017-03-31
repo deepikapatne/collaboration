@@ -143,7 +143,6 @@ public class UserDAOImpl implements UserDAO
 		try{
 			String hql_string = "FROM User WHERE username = '"+username+"'";
 			Query query = sessionFactory.getCurrentSession().createQuery(hql_string);
-			@SuppressWarnings("unchecked")
 			List<User> list = query.list();
 			if (list != null && !list.isEmpty()) 
 			{
@@ -164,8 +163,8 @@ public class UserDAOImpl implements UserDAO
 
 		@Transactional
 		public User get(String username) {
-			log.debug("->->Starting of the method get");
-			log.debug("->->username : " + username);
+			log.debug("Starting of the method get");
+			log.debug("username : " + username);
 			String hql = "from User where username=" + "'"+ username + "'" ;
 			 return getUser(hql);
 			

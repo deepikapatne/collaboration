@@ -15,12 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.niit.collaboration.dao.JobAppliedDAO;
 import com.niit.collaboration.model.JobApplied;
 
-@SuppressWarnings("deprecation")
 @Repository("jobAppliedDAO")
 @EnableTransactionManagement
 public class JobAppliedDAOImpl implements JobAppliedDAO
 {
-	Logger log = LoggerFactory.getLogger(JobAppliedDAOImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(JobAppliedDAOImpl.class);
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -51,12 +50,12 @@ public class JobAppliedDAOImpl implements JobAppliedDAO
 			}
 			catch(Exception ex)
 			{
+				log.error("Apply job not successful");
 				ex.printStackTrace();
 				return false;
 			}
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Transactional
 	public List<JobApplied> listByUser(String username) 
 	{
@@ -67,7 +66,8 @@ public class JobAppliedDAOImpl implements JobAppliedDAO
 			Query query = sessionFactory.getCurrentSession().createQuery(sql);
 			log.info("List Retrieved");
 			return query.list();
-		} catch(Exception ex)
+		} 
+		catch(Exception ex)
 		{
 			log.error("Error Getting List");
 			ex.printStackTrace();
@@ -75,18 +75,18 @@ public class JobAppliedDAOImpl implements JobAppliedDAO
 		}
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Transactional
-	public List<JobApplied> listByCompany(String title)
+	public List<JobApplied> listByCompany()
 	{
 		log.info("Entering Job Applied by Title");
 		try
 		{
-			String sql = "From JobApplied where title = '"+title+"' and status = 'Y'";
+			String sql = "From JobApplied";
 			Query query = sessionFactory.getCurrentSession().createQuery(sql);
 			log.info("List Retrieved");
 			return query.list();
-		} catch(Exception ex)
+		}
+		catch(Exception ex)
 		{
 			log.error("Error Getting List");
 			ex.printStackTrace();

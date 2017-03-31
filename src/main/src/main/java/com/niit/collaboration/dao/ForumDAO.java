@@ -8,11 +8,17 @@ import com.niit.collaboration.model.Forum;
 public interface ForumDAO
 {
 
-	public boolean save(Forum forum);
+	public boolean addForum(Forum forum);
 	
-	public boolean delete(int id);
+	public boolean deleteForum(int id);
 	
-	public boolean update(Forum forum);
+	public boolean updateForum(Forum forum);
 	
-	public List<Forum> list();
+	public Forum getForum(int id);
+	
+	public List<Forum> getUserForums(String username);
+	
+	public List<Forum> getForumList();
+	
+	public List<Forum> approvedForums();
 }

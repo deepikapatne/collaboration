@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.niit.collaboration.dao.BlogDAO;
 import com.niit.collaboration.model.Blog;
 
-@SuppressWarnings("deprecation")
 @Repository("blogDAO")
 @EnableTransactionManagement
 public class BlogDAOImpl implements BlogDAO
@@ -55,6 +54,7 @@ private static final Logger log = LoggerFactory.getLogger(BlogDAOImpl.class);
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Transactional
 	public boolean updateBlog(Blog blog)
 	{
@@ -63,10 +63,9 @@ private static final Logger log = LoggerFactory.getLogger(BlogDAOImpl.class);
 		{
 			String title = saveBlog.getBlog_title();
 			String hql_string = "FROM Blog WHERE blog_title = '"+title+"'";
-			@SuppressWarnings("rawtypes")
 			Query query = sessionFactory.getCurrentSession().createQuery(hql_string);
 			blog = (Blog) query.uniqueResult();
-			sessionFactory.getCurrentSession().delete(blog);
+			sessionFactory.getCurrentSession().update(blog);
 			log.info("Processing Requests");
 		}
 		
@@ -93,7 +92,6 @@ private static final Logger log = LoggerFactory.getLogger(BlogDAOImpl.class);
 		{
 			String title = saveBlog.getBlog_title();
 			String hql_string = "FROM Blog WHERE blog_title = '"+title+"'";
-			@SuppressWarnings("rawtypes")
 			Query query = sessionFactory.getCurrentSession().createQuery(hql_string);
 			blog = (Blog) query.uniqueResult();
 			System.out.println(" What ?? "+blog.getBlog_id()+" "+blog.getBlog_title()+" "+blog.getStatus());
@@ -130,6 +128,7 @@ private static final Logger log = LoggerFactory.getLogger(BlogDAOImpl.class);
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Transactional
 	public Blog getBlog(String title) 
 	{
@@ -149,6 +148,7 @@ private static final Logger log = LoggerFactory.getLogger(BlogDAOImpl.class);
 		}
 	}
 	
+	
 	@Transactional
 	public List<Blog> getBlogByUser(String username) 
 	{
@@ -156,9 +156,7 @@ private static final Logger log = LoggerFactory.getLogger(BlogDAOImpl.class);
 		try
 		{
 			String hql_string = "FROM Blog WHERE username = '"+username+"'";
-			@SuppressWarnings("rawtypes")
 			Query query = sessionFactory.getCurrentSession().createQuery(hql_string);
-			@SuppressWarnings("unchecked")
 			List<Blog> list = query.list();
 			if (list != null && !list.isEmpty()) 
 			{
@@ -183,9 +181,7 @@ private static final Logger log = LoggerFactory.getLogger(BlogDAOImpl.class);
 		try
 		{
 			String hql_string = "FROM Blog";
-			@SuppressWarnings("rawtypes")
 			Query query = sessionFactory.getCurrentSession().createQuery(hql_string);
-			@SuppressWarnings("unchecked")
 			List<Blog> list = query.list();
 			if (list != null && !list.isEmpty()) 
 			{
@@ -210,9 +206,7 @@ private static final Logger log = LoggerFactory.getLogger(BlogDAOImpl.class);
 		try
 		{
 			String hql_string = "FROM Blog WHERE status = 'Approved'";
-			@SuppressWarnings("rawtypes")
 			Query query = sessionFactory.getCurrentSession().createQuery(hql_string);
-			@SuppressWarnings("unchecked")
 			List<Blog> list = query.list();
 			if (list != null && !list.isEmpty()) 
 			{

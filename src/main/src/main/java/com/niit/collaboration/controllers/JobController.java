@@ -1,5 +1,6 @@
 package com.niit.collaboration.controllers;
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -31,7 +32,7 @@ public class JobController
 	private Job job;
 	
 	@Autowired 
-	HttpSession session;
+	private HttpSession session;
 	
 	@PostMapping("/addJob")
 	public ResponseEntity<Job> addJob(@RequestBody Job job)
@@ -39,6 +40,7 @@ public class JobController
 		job.setStatus('Y');
 		Date_Time dt = new Date_Time();
 		job.setDate(dt.getDateTime());
+		job.setUsername(session.getAttribute("username").toString());
 		
 		boolean value = jobDAO.addJob(job);
 		if(value == true)
@@ -106,5 +108,5 @@ public class JobController
 			job.setErrorMsg("Job has been Validated");
 		}
 		return new ResponseEntity<Job>(job, HttpStatus.OK);
-	}
+	}	
 }

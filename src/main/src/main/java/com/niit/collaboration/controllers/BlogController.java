@@ -3,6 +3,8 @@ package com.niit.collaboration.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class BlogController
 	
 	@Autowired
 	private Blog blog;
+	
+	@Autowired
+	private HttpSession session;
 	
 	@RequestMapping("/hello")
 	public String sayHello()
@@ -128,11 +133,11 @@ public class BlogController
 		return new ResponseEntity<List<Blog>>(list, HttpStatus.OK);
 	}
 	
-	@PostMapping("/getBlog")
-	public ResponseEntity<Blog> getBlog(@RequestBody Blog blog)
+	@GetMapping("/getBlog-{title}")
+	public ResponseEntity<Blog> getBlog(@PathVariable ("title") String title)
 	{
-		System.out.println("Name - "+blog.getBlog_title());
-		blog = blogDAO.getBlog(blog.getBlog_title());
+		System.out.println("Name - "+title);
+		blog = blogDAO.getBlog(title);
 		if(blog == null)
 		{
 			blog = new Blog();
@@ -173,7 +178,7 @@ public class BlogController
 	{
 		log.info("Blog Recieved");
 		blog.setStatus("Submitted");
-		
+		blog.setUsername(session.getAttribute("username").toString());
 		Date_Time dt = new Date_Time();
 		String date = dt.getDateTime();
 		blog.setDate_time(date);

@@ -1,5 +1,4 @@
 package com.niit.collaboration.daoimpl;
-
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -14,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.niit.collaboration.dao.FriendDAO;
 import com.niit.collaboration.model.Friend;
+
+
 
 @SuppressWarnings("deprecation")
 @Repository("friendDAO")
@@ -39,7 +40,8 @@ public class FriendDAOImpl implements FriendDAO
 		}
 	}
 	
-	private Integer getMaxId() {
+	private Integer getMaxId()
+	{
 		log.info("->->Starting of the method getMaxId");
 
 		String hql = "select max(id) from Friend";
@@ -63,16 +65,20 @@ public class FriendDAOImpl implements FriendDAO
 		return maxID;
 	}
 
+	@SuppressWarnings({ "unchecked" })
 	@Transactional
-	public List<String> getFriendList(String username) 
+	public List<Friend> getFriendList(String username) 
 	{
 		log.info("Entering Get Friend List for "+username);
 		try
 		{
-			String hql01 = "SELECT friendID from Friend where userID= '"+username+"' and status ='A'";
-			String hql02 = "SELECT userID from Friend where friendID= '"+username+"' and status ='A'";
-			List<String> list1 = sessionFactory.openSession().createQuery(hql01).list();
-			List<String> list2 = sessionFactory.getCurrentSession().createQuery(hql02).list();
+			String sql01 = "FROM Friend where userID= '"+username+"' and status ='A'";
+			String sql02 = "FROM Friend where friendID= '"+username+"' and status ='A'";
+			Query query1 = sessionFactory.getCurrentSession().createQuery(sql01);
+			Query query2 = sessionFactory.getCurrentSession().createQuery(sql02);
+			
+			List<Friend> list1 = query1.list();
+			List<Friend> list2 = query2.list();
 			list1.addAll(list2);
 			log.info("Friend List Retrieved");
 			return list1;
@@ -85,18 +91,19 @@ public class FriendDAOImpl implements FriendDAO
 		return null;
 	}
 
+	@SuppressWarnings({ "rawtypes" })
 	@Transactional
 	public boolean get(String userID, String friendID) 
 	{
 		try
 		{
-			String hql  = "FROM Friend WHERE userID= '"+userID+"' and friendID = '"+friendID+"'";
-			Query query = sessionFactory.getCurrentSession().createQuery(hql);
+			String sql  = "FROM Friend WHERE userID= '"+userID+"' and friendID = '"+friendID+"'";
+			Query query = sessionFactory.getCurrentSession().createQuery(sql);
 			System.out.println("This - "+query.list());
 				if(query.list().isEmpty())
 				{
-					String hql2  = "FROM Friend WHERE friendID= '"+userID+"' and userID = '"+friendID+"'";
-					Query query2 = sessionFactory.getCurrentSession().createQuery(hql2);
+					String sql2  = "FROM Friend WHERE friendID= '"+userID+"' and userID = '"+friendID+"'";
+					Query query2 = sessionFactory.getCurrentSession().createQuery(sql2);
 					if(query2.list().isEmpty())
 					{	
 						log.info("Friend Column is not available......");
@@ -135,14 +142,15 @@ public class FriendDAOImpl implements FriendDAO
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Transactional
 	public boolean accept(String userID, String friendID)
 	{
 		log.info("Update Friend");
 		try
 		{	
-			String hql = "UPDATE Friend SET status = 'A' where userID = '"+friendID+"' and friendID = '"+userID+"'";
-			Query query = sessionFactory.getCurrentSession().createQuery(hql);
+			String sql = "UPDATE Friend SET status = 'A' where userID = '"+friendID+"' and friendID = '"+userID+"'";
+			Query query = sessionFactory.getCurrentSession().createQuery(sql);
 			query.executeUpdate();
 			log.info("Update friend success");
 			return true;
@@ -154,14 +162,15 @@ public class FriendDAOImpl implements FriendDAO
 		}	
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Transactional
 	public boolean reject(String userID, String friendID) 
 	{
 		log.info("Delete Friend");
 		try
 		{	
-			String hql = "DELETE FROM Friend where userID = '"+friendID+"' and friendID = '"+userID+"'";
-			Query query = sessionFactory.getCurrentSession().createQuery(hql);
+			String sql = "DELETE FROM Friend where userID = '"+friendID+"' and friendID = '"+userID+"'";
+			Query query = sessionFactory.getCurrentSession().createQuery(sql);
 			query.executeUpdate();
 			log.info("Delete Success");
 			return true;
@@ -173,14 +182,15 @@ public class FriendDAOImpl implements FriendDAO
 		}
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Transactional
 	public boolean cancel(String userID, String friendID) 
 	{
 		log.info("Delete Friend");
 		try
 		{	
-			String hql = "DELETE FROM Friend where userID = '"+userID+"' and friendID = '"+friendID+"'";
-			Query query = sessionFactory.getCurrentSession().createQuery(hql);
+			String sql = "DELETE FROM Friend where userID = '"+userID+"' and friendID = '"+friendID+"'";
+			Query query = sessionFactory.getCurrentSession().createQuery(sql);
 			query.executeUpdate();
 			log.info("Delete Success");
 			return true;
@@ -198,9 +208,10 @@ public class FriendDAOImpl implements FriendDAO
 		log.info("Entering Pending Friend Request for "+userID);
 		try
 		{
-			String hql = "from Friend where friendID= '"+userID+"' and status ='P'";
+			String sql = "from Friend where friendID= '"+userID+"' and status ='P'";
 			
-			List<Friend> list = sessionFactory.openSession().createQuery(hql).list();
+			@SuppressWarnings("unchecked")
+			List<Friend> list = sessionFactory.openSession().createQuery(sql).list();
 			log.info("Pending List Retrieved");
 			return list;
 			
@@ -215,20 +226,88 @@ public class FriendDAOImpl implements FriendDAO
 	@Transactional
 	public List<Friend> viewSentRequests(String userID) 
 	{
-		log.info("Entering Pending Friend Request for "+userID);
+		log.info("Entering Sent Friend Request for "+userID);
 		try
 		{
-			String hql = "from Friend where userID= '"+userID+"' and status ='P'";
+			String sql = "from Friend where userID= '"+userID+"' and status ='P'";
 			
-			List<Friend> list = sessionFactory.openSession().createQuery(hql).list();
-			log.info("Pending List Retrieved");
+			@SuppressWarnings("unchecked")
+			List<Friend> list = sessionFactory.openSession().createQuery(sql).list();
+			log.info("Sent List Retrieved");
 			return list;
 			
 		}	catch(Exception ex)
 		{
-			log.error("Error getting Pending List");
+			log.error("Error getting Sent List");
 			ex.printStackTrace();
 		}
 		return null;	
+	}
+	
+	@Transactional
+	public boolean removeFriend(String userID, String friendID)
+	{
+		log.info("Remove Friend");
+		try
+		{	
+			boolean a = cancel(userID, friendID);
+			boolean b = reject(userID, friendID);
+			if(a==true || b==true)
+			{
+				log.info("Delete Success"+a+" "+b);
+				return true;
+				
+			}	return false;
+			
+		}	catch(HibernateException e)
+		{
+			log.error("Error Removing Friend");
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Transactional
+	public boolean setUsersOnline(String username)
+	{
+		String sql1 = "UPDATE Friend set userIsOnline = 'Y' where userID = '"+username+"'";
+		String sql2 = "UPDATE Friend set friendisOnline = 'Y' where friendID = '"+username+"'";
+		try
+		{
+			Query query1 = sessionFactory.getCurrentSession().createQuery(sql1);
+			query1.executeUpdate();
+			Query query2 = sessionFactory.getCurrentSession().createQuery(sql2);
+			query2.executeUpdate();
+			log.info("Online Update Success after login");
+			return true;
+		} catch(Exception e)
+		{
+			log.error("Error Updating Status");
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Transactional
+	public boolean setUsersOffline(String username)
+	{
+		String sql1 = "UPDATE Friend set userIsOnline = 'N' where userID = '"+username+"'";
+		String sql2 = "UPDATE Friend set friendisOnline = 'N' where friendID = '"+username+"'";
+		try
+		{
+			Query query1 = sessionFactory.getCurrentSession().createQuery(sql1);
+			query1.executeUpdate();
+			Query query2 = sessionFactory.getCurrentSession().createQuery(sql2);
+			query2.executeUpdate();
+			log.info("Online Update Success after login");
+			return true;
+		} catch(Exception e)
+		{
+			log.error("Error Updating Status");
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

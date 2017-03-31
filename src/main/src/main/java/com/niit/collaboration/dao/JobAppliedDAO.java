@@ -1,7 +1,9 @@
 package com.niit.collaboration.dao;
 
+
 import java.util.List;
 
+import com.niit.collaboration.model.Job;
 import com.niit.collaboration.model.JobApplied;
 
 public interface JobAppliedDAO 
@@ -11,6 +13,6 @@ public interface JobAppliedDAO
 	
 	public List<JobApplied> listByUser(String username);
 	
-	public List<JobApplied> listByCompany(String title);
+	public List<JobApplied> listByCompany();
 	
 }

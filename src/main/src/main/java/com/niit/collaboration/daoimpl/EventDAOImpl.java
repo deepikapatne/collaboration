@@ -15,12 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.niit.collaboration.dao.EventDAO;
 import com.niit.collaboration.model.Event;
 
-@SuppressWarnings("deprecation")
-@Repository("EventDAO")
+@Repository("eventDAO")
 @EnableTransactionManagement
 public class EventDAOImpl implements EventDAO
 {
-	Logger log = LoggerFactory.getLogger(EventDAOImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(JobAppliedDAOImpl.class);
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -38,30 +37,86 @@ public class EventDAOImpl implements EventDAO
 			ex.printStackTrace();
 		}
 	}
-   
+	
 	@Transactional
-	public void save(Event event) {
-		sessionFactory.getCurrentSession().saveOrUpdate(event);
+	public boolean addEvent(Event event) 
+	{
+		try
+		{
+			sessionFactory.getCurrentSession().save(event);
+			log.info("Event has been saved");
+			return true;
+		} 
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			log.error("Error saving Event");
+			return false;
+		}
 	}
- 
+
 	@Transactional
-	public void update(Event event) {
-		sessionFactory.getCurrentSession().update(event);		
+	public boolean deleteEvent(int id) 
+	{
+		log.info("Entering Delete Event");
+		try 
+		{
+			String sql = "FROM Event where id = '"+id+"'";
+			Query query = sessionFactory.getCurrentSession().createQuery(sql);
+			Event event = (Event) query.uniqueResult();
+			if(event == null)
+			{
+				log.info("Event Not Found");
+				return false;
+			}
+			
+			sessionFactory.getCurrentSession().delete(event);
+			log.info("Success delete Event");
+			return true;
+		}
+		catch (HibernateException e) 
+		{
+			log.error("Error Deleting Event");
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Transactional
-	public void delete(String id) {
-       Event event = new Event();
-       event.setId(id);
-       sessionFactory.getCurrentSession().delete(event);
+	public Event getEvent(int id)
+	{
+		try
+		{
+			String sql = "FROM Event where id = '"+id+"'";
+			Query query = sessionFactory.getCurrentSession().createQuery(sql);
+			Event event = (Event) query.uniqueResult();
+			log.info("Event has been retrieved");
+			return event;
+		}
+		catch(HibernateException ex)
+		{
+			log.error("Event not retrieved");
+			ex.printStackTrace();
+			return null;	
+		}
 	}
 
 	@Transactional
-	public List<Event> list() {
-		String hql = "from Event";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		return query.list();
+	public List<Event> listEvent() 
+	{
+		try
+		{
+			String sql = "FROM Event";
+			Query query = sessionFactory.getCurrentSession().createQuery(sql);
+			List<Event> events = query.list();
+			log.info("Event list has been retrieved");
+			return events;
+		}
+		catch(HibernateException ex)
+		{
+			log.error("Event list has some error");
+			ex.printStackTrace();
+			return null;	
+		}
 	}
-
-
 }

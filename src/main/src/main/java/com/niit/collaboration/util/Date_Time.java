@@ -42,4 +42,3 @@ public class Date_Time
 		System.out.println("Date Format - "+dateFormat);
 	}
 }
-

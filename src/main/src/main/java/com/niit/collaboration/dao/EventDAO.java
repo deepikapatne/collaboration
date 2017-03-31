@@ -1,18 +1,18 @@
 package com.niit.collaboration.dao;
 
+
 import java.util.List;
 
 import com.niit.collaboration.model.Event;
 
-public interface EventDAO {
-
-
-	public void save(Event event);
+public interface EventDAO
+{
+	public boolean addEvent(Event event);
 	
-	public void update(Event event);
+	public boolean deleteEvent(int id);
 	
-	public void delete(String id);
+	public Event getEvent(int id);
 	
-	public List<Event> list();
+	public List<Event> listEvent();
 	
 }

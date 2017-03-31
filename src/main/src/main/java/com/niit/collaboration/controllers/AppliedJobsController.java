@@ -3,6 +3,8 @@ package com.niit.collaboration.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.niit.collaboration.dao.JobAppliedDAO;
+import com.niit.collaboration.model.Job;
 import com.niit.collaboration.model.JobApplied;
 import com.niit.collaboration.util.Date_Time;
 
@@ -27,14 +30,25 @@ public class AppliedJobsController
 	private JobApplied jobApplied;
 	
 	@Autowired
+	private HttpSession session;
+	
+	@Autowired
 	private JobAppliedDAO jobAppliedDAO;
 	
 	@PostMapping("/applyJob")
-	public ResponseEntity<JobApplied> applyJob(@RequestBody JobApplied jobApplied)
+	public ResponseEntity<JobApplied> applyJob(@RequestBody Job job)
 	{
 		log.info("Apply Job initiated");
+		
+		jobApplied.setCompany(job.getCompany());
 		Date_Time dt = new Date_Time();
 		jobApplied.setDate(dt.getDateTime());
+		jobApplied.setLocation(job.getLocation());
+		jobApplied.setPosition(job.getPosition());
+		jobApplied.setStatus('A');
+		jobApplied.setTitle(job.getTitle());
+		jobApplied.setUsername(session.getAttribute("username").toString());
+
 		boolean value = jobAppliedDAO.applyNew(jobApplied);
 		if(value)
 		{
@@ -52,11 +66,16 @@ public class AppliedJobsController
 		return new ResponseEntity<JobApplied> (jobApplied, HttpStatus.OK);
 	}
 
-	@GetMapping("/viewMyJobs-{username}")
-	public ResponseEntity<List<JobApplied>> getJobsofUser(@PathVariable ("username") String username)
+	@GetMapping("/viewMyJobs")
+	public ResponseEntity<List<JobApplied>> getJobsofUser()
 	{
 		log.info("Fetching Jobs by username");
-		List<JobApplied> list = jobAppliedDAO.listByUser(username);
+		if(session.getAttribute("username")==null)
+		{
+			return null;
+		}
+		
+		List<JobApplied> list = jobAppliedDAO.listByUser(session.getAttribute("username").toString());
 		if(list.isEmpty())
 		{
 			log.info("Job list seems to be empty");
@@ -77,11 +96,11 @@ public class AppliedJobsController
 		return new ResponseEntity<List<JobApplied>> (list, HttpStatus.OK);
 	}
 	
-	@GetMapping("/viewApplications-{title}")
-	public ResponseEntity<List<JobApplied>> getJobsByCompany(@PathVariable ("title") String title)
+	@GetMapping("/viewApplications")
+	public ResponseEntity<List<JobApplied>> getJobsByCompany()
 	{
 		log.info("Fetching Jobs by username");
-		List<JobApplied> list = jobAppliedDAO.listByCompany(title);
+		List<JobApplied> list = jobAppliedDAO.listByCompany();
 		if(list.isEmpty())
 		{
 			log.info("Job list seems to be empty");

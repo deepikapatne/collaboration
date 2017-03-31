@@ -1,6 +1,6 @@
 package com.niit.collaboration.model;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,31 +11,28 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name="C_BLOGCOMMENT")
+@Table(name = "C_ForumReply")
 @Component
-public class BlogComment extends BaseDomain
+public class ForumReply extends BaseDomain
 {
-
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int reply_id;
+
 	private String username;
-	private String blog_id;
+	private int forum_id;
 	private int rating;
 	@Lob
-	@Column(name="BLOG_COMMENT")
-	private String comment;
-	
-	@Column(name="postedAt")
+	private String reply;
+
 	private String postedAt;
 
-	public int getId() {
-		return id;
+	public int getReply_id() {
+		return reply_id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setReply_id(int reply_id) {
+		this.reply_id = reply_id;
 	}
 
 	public String getUsername() {
@@ -46,12 +43,12 @@ public class BlogComment extends BaseDomain
 		this.username = username;
 	}
 
-	public String getBlog_id() {
-		return blog_id;
+	public int getForum_id() {
+		return forum_id;
 	}
 
-	public void setBlog_id(String blog_id) {
-		this.blog_id = blog_id;
+	public void setForum_id(int forum_id) {
+		this.forum_id = forum_id;
 	}
 
 	public int getRating() {
@@ -62,12 +59,12 @@ public class BlogComment extends BaseDomain
 		this.rating = rating;
 	}
 
-	public String getComment() {
-		return comment;
+	public String getReply() {
+		return reply;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setReply(String reply) {
+		this.reply = reply;
 	}
 
 	public String getPostedAt() {
@@ -77,4 +74,5 @@ public class BlogComment extends BaseDomain
 	public void setPostedAt(String postedAt) {
 		this.postedAt = postedAt;
 	}
+
 }

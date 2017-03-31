@@ -16,7 +16,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.niit.collaboration.model.Blog;
 import com.niit.collaboration.model.BlogComment;
 import com.niit.collaboration.model.Event;
+import com.niit.collaboration.model.FileUpload;
 import com.niit.collaboration.model.Forum;
+import com.niit.collaboration.model.ForumReply;
 import com.niit.collaboration.model.Friend;
 import com.niit.collaboration.model.Job;
 import com.niit.collaboration.model.JobApplied;
@@ -36,8 +38,8 @@ public class ApplicationContextConfiguration
 			
 			dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 			dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
-			dataSource.setUsername("DEEPS");
-			dataSource.setPassword("patne");
+			dataSource.setUsername("COLBB_DB");
+			dataSource.setPassword("root");
 			
 			return dataSource;
 		}
@@ -47,7 +49,7 @@ public class ApplicationContextConfiguration
 			Properties properties = new Properties();
 			
 			properties.put("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
-//			properties.put("hibernate.hbm2ddl.auto", "update");
+		//	properties.put("hibernate.hbm2ddl.auto", "update");
 			properties.put("hibernate.show_sql", "true");
 			
 			return properties;
@@ -68,7 +70,9 @@ public class ApplicationContextConfiguration
 			sessionBuilder.addAnnotatedClass(Event.class);
 			sessionBuilder.addAnnotatedClass(BlogComment.class);
 			sessionBuilder.addAnnotatedClass(Friend.class);
+			sessionBuilder.addAnnotatedClass(FileUpload.class);
 			sessionBuilder.addAnnotatedClass(Forum.class);
+			sessionBuilder.addAnnotatedClass(ForumReply.class);
 			
 			return sessionBuilder.buildSessionFactory();
 		}

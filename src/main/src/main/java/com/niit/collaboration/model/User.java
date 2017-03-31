@@ -30,6 +30,7 @@ public class User extends BaseDomain
 	private String role;
 
 	private char isOnline;
+	private String last_seen;
 	
 	@Transient
 	private String birthdate;
@@ -100,5 +101,11 @@ public class User extends BaseDomain
 	}
 	public void setIsOnline(char isOnline) {
 		this.isOnline = isOnline;
+	}
+	public String getLast_seen() {
+		return last_seen;
+	}
+	public void setLast_seen(String last_seen) {
+		this.last_seen = last_seen;
 	}
 }

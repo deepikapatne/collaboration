@@ -64,14 +64,14 @@ public class JobDAOImpl implements JobDAO
 		log.info("List jobs method Started");
 		try
 		{
-			String hql = "FROM Job";
+			String hql = "FROM Job WHERE status='Y'";
 			Query query = sessionFactory.getCurrentSession().createQuery(hql);
 			log.info("List of Jobs retrieved");
 			return query.list();
 		}	
 		catch(Exception ex)
 		{
-			log.info("Error occured");
+			log.error("Error occured");
 			ex.printStackTrace();
 			return null;
 		}	

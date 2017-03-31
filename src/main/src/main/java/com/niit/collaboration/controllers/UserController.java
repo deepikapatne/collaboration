@@ -1,6 +1,5 @@
 package com.niit.collaboration.controllers;
 
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -17,15 +16,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.niit.collaboration.dao.FriendDAO;
 import com.niit.collaboration.dao.UserDAO;
 import com.niit.collaboration.model.User;
+import com.niit.collaboration.util.Date_Time;
 
 @RestController
-public class UserController {
-	Logger log = LoggerFactory.getLogger(UserController.class);
+public class UserController 
+{
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserDAO userDAO;
+	
+	@Autowired
+	private FriendDAO friendDAO;
 
 	@Autowired
 	private User user;
@@ -74,7 +79,7 @@ public class UserController {
 	public ResponseEntity<User> validateUser(@RequestBody User user) 
 	{
 		System.out.println("Name - "+user.getUsername());
-		System.out.println("Password "+user.getPassword());
+//		System.out.println("Password "+user.getPassword());
 		boolean value = userDAO.validateUser(user.getUsername(), user.getPassword());
 		System.out.println(value);
 		if (value == false) 
@@ -101,13 +106,20 @@ public class UserController {
 			{
 				user = userDAO.getUser(user.getUsername());
 				user.setIsOnline('Y');
+				Date_Time dt = new Date_Time();
+				user.setLast_seen(dt.getDateTime());
 				userDAO.addUser(user);
+				friendDAO.setUsersOnline(user.getUsername());
 				session.setAttribute("username", user.getUsername());
-				session.setAttribute("user_role", user.getRole());
+				session.setAttribute("role", user.getRole());
+				session.setAttribute("isLoggedIn", "true");
+				if(user.getDob()!=null)
+					user.setBirthdate( dt.toStringDate(user.getDob()));
+				
 				user.setErrorCode("200");
 				user.setErrorMsg("Success");
 				System.out.println("Name = "+session.getAttribute("username").toString());
-				System.out.println("Role = "+session.getAttribute("user_role").toString());
+				System.out.println("Role = "+session.getAttribute("role").toString());
 			}
 		}
 
@@ -133,6 +145,29 @@ public class UserController {
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
+	
+	@PostMapping("/updateUser")
+	public ResponseEntity<User> updateUser(@RequestBody User user)
+	{
+		if(user != null)
+		{
+			boolean value = userDAO.addUser(user);
+			if (value == true) 
+			{
+				user.setErrorCode("200");
+				user.setErrorMsg("User updated Successfully");
+			} 
+			else 
+			{
+				user.setErrorCode("100");
+				user.setErrorMsg("Add User Failed");
+				return null;
+			}
+		}
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
+	
+	
 	@GetMapping("/delete_user-{id}")
 	public ResponseEntity<User> deleteUser(@PathVariable("id") String userName) 
 	{
@@ -155,14 +190,27 @@ public class UserController {
 	@GetMapping("/logout")
 	public ResponseEntity<User> logout()
 	{
-		
-		user = userDAO.getUser(session.getAttribute("username").toString());
-		user.setIsOnline('N');
-		userDAO.addUser(user);
-		user = new User();
-		user.setErrorCode("200");
-		user.setErrorMsg("You have logged out.");
-		session.invalidate();
+		log.info("isLoggedIN - "+session.getAttribute("isLoggedIn"));
+		if(session.getAttribute("isLoggedIn") != null)
+		{
+			user = userDAO.getUser(session.getAttribute("username").toString());
+			user.setIsOnline('N');
+			Date_Time dt = new Date_Time();
+			user.setLast_seen(dt.getDateTime());
+			userDAO.addUser(user);
+			friendDAO.setUsersOffline(session.getAttribute("username").toString());
+			user = new User();
+			user.setErrorCode("200");
+			user.setErrorMsg("You have logged out.");
+			session.invalidate();
+		}
+		else
+		{
+			user = new User();
+			user.setErrorCode("500");
+			user.setErrorMsg("You have not logged in");
+			log.info(user.getErrorMsg());
+		}
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 }

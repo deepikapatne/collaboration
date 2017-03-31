@@ -2,10 +2,12 @@ package com.niit.collaboration.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -14,30 +16,41 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "C_EVENT")
 @Component
-public class Event extends BaseDomain {
-
+public class Event extends BaseDomain
+{
 	@Id
-	private String id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
+	
 	private String name;
-	private String venue;
-	private Date date_time;
+	
+	@Lob
 	private String description;
+	
+	@Column(name = "EVENT_DATE")
+	private Date date;
+	
+	private String time;
+	private String venue;
+	@Column(name = "POSTED")
+	private String postedTime;
+	
 	@Transient
-	private String date4;
-
-	public String getDate4() {
-		return date4;
+	private String eventDate;
+	
+	public String getEventDate() {
+		return eventDate;
 	}
 
-	public void setDate4(String date4) {
-		this.date4 = date4;
+	public void setEventDate(String eventDate) {
+		this.eventDate = eventDate;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -49,6 +62,30 @@ public class Event extends BaseDomain {
 		this.name = name;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
 	public String getVenue() {
 		return venue;
 	}
@@ -57,19 +94,11 @@ public class Event extends BaseDomain {
 		this.venue = venue;
 	}
 
-	public Date getDate_time() {
-		return date_time;
+	public String getPostedTime() {
+		return postedTime;
 	}
 
-	public void setDate_time(Date date_time) {
-		this.date_time = date_time;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setPostedTime(String postedTime) {
+		this.postedTime = postedTime;
 	}
 }
