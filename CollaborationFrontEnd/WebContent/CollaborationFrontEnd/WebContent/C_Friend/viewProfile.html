@@ -10,7 +10,7 @@
 <style type="text/css">
 body
 {
-    background-image: url("images/white.jpg");
+    background-image: url("images/main-bg.jpg");
     background-repeat: no-repeat;
     background-size: 100%; 
     background-attachment: fixed;
@@ -22,10 +22,10 @@ body
 		<div class="row">
 			<div class="col-sm-4">
 				<h2 style="text-align: center;">{{friend.first_name}} {{friend.last_name}}</h2>
-				<p style="text-align: center;"><img data-ng-src="images/{{friend.username}}" onerror="this.src='images/profilepic.png'" height="250" width="250"></p>
+				<p style="text-align: center;"><img data-ng-src="images/{{friend.username}}" onerror="this.src='images/profilepic.png'" height="200" width="200"></p>
 			</div>
-			<div class="col-sm-8">
-				<table class="table table-striped">
+			<div class="col-sm-4">
+				<table class="table">
 			    		
 			    		<tr>
 							<th> UserName: </th>

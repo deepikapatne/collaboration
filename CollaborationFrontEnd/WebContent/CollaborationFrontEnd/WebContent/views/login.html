@@ -11,7 +11,7 @@
 <style type="text/css">
 body
 {
-    background-image: url("images/login.png");
+    background-image: url("images/main-bg.jpg");
     background-repeat: no-repeat;
     background-size: cover; 
 }
@@ -22,17 +22,17 @@ body
 <div class="container" data-ng-controller = "UserController as ctrl">
 	<section id="content">
 		<form name="form" data-ng-submit="ctrl.login()" role="form">
-			<h1>Login Here</h1>
-			<div>
+			<h1 style="padding:10px;">Login</h1>
+			<div style="padding:10px;">
 				<input type="text" placeholder="Username" required="required" id="username" data-ng-model="user.username"/>
 			</div>
-			<div>
+			<div style="padding:10px;">
 				<input type="password" placeholder="Password" required="required" id="password" data-ng-model="user.password"/>
 			</div>
-			<div>
+			<div style="padding:10px;">
 				<input type="submit" value="Log in" />
-				<a href="#"></a>
-				<a href="#/register">Register</a>
+				<a style="padding:2px;" href="#"></a>
+				<a style="padding:2px;" href="#/register">Register</a>
 			</div>
 		</form><!-- form -->
 	</section><!-- content -->

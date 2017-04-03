@@ -5,7 +5,7 @@
 <style type="text/css">
 body
 {
-    background-image: url("images/white.jpg");
+    background-image: url("images/main-bg.jpg");
     background-repeat: no-repeat;
     background-size: 100%; 
     background-attachment: fixed;
@@ -15,6 +15,15 @@ body
 <body>
 	<div class="container" data-ng-controller='UserController as ctrl'>
 		<div class="row">
+		
+			<ul class="nav nav-pills nav-stacked">
+ 					 <li role="presentation"><a style="width: 200px;" class="btn btn-default btn-block" data-toggle="tab" href="#myProfile">My Profile</a></li>
+ 					 <li role="presentation"><a style="width: 200px;" class="btn btn-default btn-block" data-toggle="tab" href="#myFriends">My Friends</a></li>
+					 <li role="presentation"><a style="width: 200px;" class="btn btn-default btn-block" data-toggle="tab" href="#pendingRequests">Pending Requests</a></li>
+					 <li role="presentation"><a style="width: 200px;" class="btn btn-default btn-block" data-toggle="tab" href="#sentRequests">Sent Requests</a></li>
+					 <li role="presentation"><a style="width: 200px;" class="btn btn-default btn-block" data-toggle="tab" href="#myJobs">Applied Jobs</a></li>
+				</ul>
+		
 			<div class="col-sm-4">
 				<h2 style="text-align: center;">{{currentUser.first_name}} {{currentUser.last_name}}</h2>
 				<p style="text-align: center;"><img data-ng-src="images/{{currentUser.username}}" onerror="this.src='images/profilepic.png'" height="250" width="250"></p>
@@ -22,17 +31,9 @@ body
 			</div>
 			<div class="col-sm-8">
 			
-				<ul class="nav nav-tabs nav-justified">
- 					 <li role="presentation"><a data-toggle="tab" href="#myProfile">My Profile</a></li>
- 					 <li role="presentation"><a data-toggle="tab" href="#myFriends">My Friends</a></li>
-					 <li role="presentation"><a data-toggle="tab" href="#pendingRequests">Pending Requests</a></li>
-					 <li role="presentation"><a data-toggle="tab" href="#sentRequests">Sent Requests</a></li>
-					 <li role="presentation"><a data-toggle="tab" href="#myJobs">Applied Jobs</a></li>
-				</ul>
-								
 				 <div class="tab-content">
 				    <div id="myProfile" class="tab-pane fade in active">
-				    <table class="table table-striped">
+				    <table class="table">
 			    		
 			    		<tr>
 							<th> UserName: </th>

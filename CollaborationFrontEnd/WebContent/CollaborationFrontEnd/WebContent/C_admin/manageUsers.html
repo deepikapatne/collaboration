@@ -11,7 +11,7 @@
 <style type="text/css">
 body
 {
-    background-image: url("images/admin.jpg");
+    background-image: url("images/main-bg.jpg");
     background-repeat: no-repeat;
     background-size: 100%; 
     background-attachment: fixed;
@@ -30,31 +30,31 @@ body
 <h2 style="text-align: center; color: black"><strong>View All Users</strong></h2>
 <div class="container2" data-ng-if="users"  data-ng-repeat="u in users">
 <br>
-	<div class="row" style=" box-shadow: 5px 5px 5px #888888;">
+	<div class="col-sm-10" style=" box-shadow: 5px 5px 5px #888888;">
 		
 		<div data-ng-if="currentUser.username != u.username">
 		<br>		
-		<div class="col-sm-9">
+		<div class="col-sm-10">
 			<table class="table table-hover table-responsive">
 				<tr>
-					<td style="color: black"><h5><strong>UserName:</strong> {{u.username}}</h5></td>
-					<td style="color: black"><h5><strong>Mail ID:</strong> {{u.mail_id}}</h5></td>
+					<td style="color: black"><strong>UserName:</strong> {{u.username}}</td>
+					<td style="color: black"><strong>Mail ID:</strong> {{u.mail_id}}</td>
 				</tr>
 				<tr>
-					<td style="color: black"><h4><strong>Name:</strong> {{u.first_name}} {{u.last_name}}</h4></td>
-					<td style="color: black"><h5><strong>Role:</strong> {{u.role}}</h5></td>
+					<td style="color: black"><strong>Name:</strong> {{u.first_name}} {{u.last_name}}</td>
+					<td style="color: black"><strong>Role:</strong> {{u.role}}</td>
 				</tr>
 				<tr>
-					<td data-ng-if="u.status == 'A'" style="color: black"><h5><strong>Status:</strong> ACCEPTED</h5></td>
+					<td data-ng-if="u.status == 'A'" style="color: black"><strong>Status:</strong> ACCEPTED</td>
 					
-					<td data-ng-if="u.status == 'N'" style="color: black"><h5><strong>Status:</strong> NEW USER</h5></td>
+					<td data-ng-if="u.status == 'N'" style="color: black"><strong>Status:</strong> NEW USER</td>
 					
-					<td data-ng-if="u.status == 'R'" style="color: black"><h5><strong>Status:</strong> REJECTED</h5></td>
+					<td data-ng-if="u.status == 'R'" style="color: black"><strong>Status:</strong> REJECTED</td>
 				</tr>
 			</table>					
 		</div>
-		<div class="col-sm-3">
-		<table class="table table-hover">
+		<div class="col-sm-1">
+		<table class="table">
 		<tr>
 			<td><a data-ng-if="u.status != 'A'" class="btn btn-success btn-md" href="" data-ng-click="ctrl.acceptUser(u)" class="btn">ACCEPT USER</a></td>	
 		</tr>

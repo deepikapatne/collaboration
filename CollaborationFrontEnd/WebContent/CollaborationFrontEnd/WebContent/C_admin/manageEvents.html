@@ -11,14 +11,14 @@
 <style type="text/css">
 body
 {
-    background-image: url("images/admin.jpg");
+    background-image: url("images/main-bg.jpg");
     background-repeat: no-repeat;
     background-size: 100%; 
     background-attachment: fixed;
 }
 .table
 {
-    background-image: url("images/white.jpg");
+    background-image: url("images/main-bg.jpg");
     background-repeat: no-repeat;
     background-size: 100%; 
     background-attachment: fixed;
@@ -29,9 +29,9 @@ color: black:
 </style>
 </head>
 <body>
-	<ul class="nav nav-tabs nav-justified">
-		 <li role="presentation"><a class="btn btn-default btn-block" data-toggle="tab" href="#manageEvents">MANAGE EVENTS</a></li>
-		 <li role="presentation"><a class="btn btn-default btn-block" data-toggle="tab" href="#addEvents">POST NEW EVENT</a></li>
+	<ul class="nav nav-pills nav-stacked">
+		 <li role="presentation"><a style="width: 200px;" class="btn btn-default btn-block" data-toggle="tab" href="#manageEvents">MANAGE EVENTS</a></li>
+		 <li role="presentation"><a style="width: 200px;" class="btn btn-default btn-block" data-toggle="tab" href="#addEvents">POST NEW EVENT</a></li>
 	</ul>
 
 <div class="tab-content">
@@ -75,7 +75,7 @@ color: black:
 		<div class="col-sm-6">
 			<form role="form" data-ng-submit="ctrl.addEvents()">
 				<h2 style="text-align: center; color: black"><strong>Add New Event</strong></h2>
-					<table class="table table-hover" style="color:blue; box-shadow: 10px 10px 5px #888888;" >
+					<table class="table" style="color:black; box-shadow: 10px 10px 5px #888888;" >
 						<tr>
 							<th>Event Name</th>
 							<td><input type="text" maxlength="255" placeholder="Event Title" required="required" data-ng-model="event.name"/></td>
@@ -123,7 +123,7 @@ color: black:
 							<td><textarea rows="5" cols="50" placeholder="Event Description" required="required" data-ng-model="event.description"></textarea></td>
 						</tr>
 						<tr>
-							<td><input type="submit" class="btn btn-success" value="Add Event &raquo;"/></td>
+							<td><input type="submit" class="btn btn-success" value="Add Event"/></td>
 							<td><input type="reset" class="btn btn-danger" value="Reset Data"/></td>
 						</tr>
 					</table>

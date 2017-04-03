@@ -23,14 +23,14 @@ body
 <body>
 <div  class="container">
 
-	<ul class="nav nav-tabs">
-		 <li role="presentation"><a class="btn btn-default btn-block" data-toggle="tab" href="#viewBlogs">VIEW BLOGS</a></li>
-		 <li role="presentation"><a class="btn btn-default btn-block" data-toggle="tab" href="#addBlogs">POST BLOG</a></li>
+	<ul class="nav nav-pills nav-stacked">
+		 <li role="presentation"><a style="width: 200px;" class="btn btn-default btn-block" data-toggle="tab" href="#viewBlogs">VIEW BLOGS</a></li>
+		 <li role="presentation"><a style="width: 200px;" class="btn btn-default btn-block" data-toggle="tab" href="#addBlogs">POST BLOG</a></li>
 	</ul>
 
 <div class="tab-content">
 	<div id="viewBlogs" class="tab-pane fade in active" data-ng-controller="BlogController as ctrl">
-		<h2  style="text-align: center; color: white"><strong>View Blogs</strong></h2>
+		<h2  style="text-align: center; color: black"><strong>View Blogs</strong></h2>
 <div class="row">
 <div class="col-sm-3"></div>
 <div class="col-sm-4">
@@ -45,10 +45,10 @@ body
 </div>
 	<div data-ng-repeat="b in blogs|filter:{blog_title:search}">
 		<div data-ng-if="b.status == 'Approved'">
-		<div class="row" >
+		<div class="col-sm-4" >
 			<div class="col-sm-2"></div>
 			<div class="col-sm-8 black" style="box-shadow: 5px 5px 5px #000000;">
-				<font style="font-size: large;"><a href="" ng-click="getBlog(b.blog_title)">{{b.blog_title}}</a></font> written by <strong>{{b.username}}</strong><br>
+				<font style="font-size: large;"><a href="" ng-click="getBlog(b.blog_title)">{{b.blog_title}}</a><br></font> written by <strong>{{b.username}}</strong><br>
 				<br>
 				<p style="text-align: justify;">{{b.description}}
 			</div>
@@ -63,21 +63,20 @@ body
 	<div class="col-sm-3"></div>
 		<div class="col-sm-6">
 			<form role="form" data-ng-submit="addBlog()">
-				<h2  style="text-align: center; color: black"><strong>Post A Blog</strong></h2>
-					<table class="table table-hover black" style="box-shadow: 10px 10px 5px #000000;" >
-						<tr>
-							<td>TITLE</td>
-							<td><input type="text" autofocus="autofocus" maxlength="200" placeholder="Enter Blog Title" data-ng-model="blog.blog_title"></td>
-						</tr>
-						<tr>
-							<td>DESCRIPTION</td>
-							<td><textarea rows="5" cols="50" placeholder="Describe your blog here" data-ng-model="blog.description"></textarea>
-						</tr>
-						<tr>
-							<td rowspan="2"><input type="submit" value="Submit Blog"></td>
-							<td><input type="reset" value="Clear"> </td>
-						</tr>	
-					</table>
+			
+				<h2 style="padding:10px;">Post A Blog</h2>
+				<div style="padding:10px;">
+					<input type="text" autofocus="autofocus" maxlength="200" placeholder="Enter Blog Title" data-ng-model="blog.blog_title">
+				</div>
+				<div style="padding:10px;">
+					<textarea rows="5" cols="50" placeholder="Describe your blog here" data-ng-model="blog.description"></textarea>
+				</div>
+				<div style="padding:10px;">
+					<input type="submit" value="Submit Blog">
+					<a style="padding:2px;" href="#"></a>
+					<input type="reset" value="Clear">
+				</div>
+			
 			</form>
 	</div>
 	</div>

@@ -10,14 +10,14 @@
 <style>
 body
 {
-    background-image: url("images/white.jpg");
+    background-image: url("images/main-bg.jpg");
     background-repeat: no-repeat;
     background-size: 100%; 
     background-attachment: fixed;
 }
 .row
 {
-    background-image: url("images/white.jpg");
+    background-image: url("images/main-bg.jpg");
     background-repeat: no-repeat;
     background-size: 100%; 
     background-attachment: fixed;
@@ -67,16 +67,16 @@ body
 		<div class="col-sm-6">
 			<table class="table table-responsive">
 				<tr>
-					<td style="color: black"><h5><strong>UserName: </strong><a href="" data-ng-click="getProfile(u.username)" >{{u.username}}</a> </h5></td>
+					<td style="color: black"><strong>UserName: </strong><a href="" data-ng-click="getProfile(u.username)" >{{u.username}}</a></td>
 				</tr>
 				<tr>
-					<td style="color: black"><h4><strong>Name:</strong> {{u.first_name}} {{u.last_name}}</h4></td>
+					<td style="color: black"><strong>Name:</strong> {{u.first_name}} {{u.last_name}}</td>
 				</tr>
 			</table>					
 		</div>
-		<div class="col-sm-3">
+		<div class="col-sm-1">
 		<br>
-			<a class="btn btn-primary btn-md" href="" data-ng-click="ctrl.friendRequest(u.username)">Send Request</a>
+			<a class="btn btn-primary btn-sm" href="" data-ng-click="ctrl.friendRequest(u.username)">Send Request</a>
 		</div>
 		</div>
 	</div>

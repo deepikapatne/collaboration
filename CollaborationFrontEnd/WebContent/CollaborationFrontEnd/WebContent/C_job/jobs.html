@@ -10,14 +10,14 @@
 <style type="text/css">
 body
 {
-    background-image: url("images/jobs.jpg");
+    background-image: url("images/main-bg.jpg");
     background-repeat: no-repeat;
     background-size: 100%; 
     background-attachment: fixed;
 }
 .table
 {
-    background-image: url("images/black.jpg");
+    background-image: url("images/blamain-bg.jpg");
     background-repeat: no-repeat;
     background-size: 100%; 
     background-attachment: fixed;
@@ -37,11 +37,12 @@ color: black:
 </style>
 </head>
 <body>
-	<h1 style="text-align: center; color: black"><strong>Available Jobs</strong></h1>
+	<h1 style="text-align: left; color: black"><strong>Available Jobs</strong></h1>
+	<br/>
 	<div class="container" data-ng-controller="UserController as ctrl">
 		<div class="row" data-ng-repeat="j in jobs">
-			<div class="col-sm-12">
-				<table class="table" style="box-shadow: 5px 5px 2px black; font: bold; color: white">
+			<div class="col-sm-5">
+				<table class="table" style="box-shadow: 5px 5px 2px black; font: bold; color: black">
 					<tr style="font: bold;">
 						<td colspan="3"><h3>{{j.title}}</h3></td>
 					</tr>
@@ -65,7 +66,7 @@ color: black:
 						<td colspan="3">Description: {{j.description}}</td>
 					</tr>
 					<tr>
-						<td colspan="3"><p style="text-align: right"><a href="" class="btn btn-primary btn-lg" data-ng-click="ctrl.applyJob(j)">Apply Job</a></p>
+						<td colspan="2"><p style="text-align: right"><a href="" class="btn btn-primary btn-lg" data-ng-click="ctrl.applyJob(j)">Apply Job</a></p>
 					</tr>
 				</table>
 			</div>

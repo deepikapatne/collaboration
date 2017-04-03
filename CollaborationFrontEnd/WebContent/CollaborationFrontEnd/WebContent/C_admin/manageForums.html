@@ -11,14 +11,14 @@
 <style type="text/css">
 body
 {
-    background-image: url("images/admin.jpg");
+    background-image: url("images/main-bg.jpg");
     background-repeat: no-repeat;
     background-size: 100%; 
     background-attachment: fixed;
 }
 .row
 {
-    background-image: url("images/white.jpg");
+    background-image: url("images/main-bg.jpg");
     background-repeat: no-repeat;
     background-size: 100%; 
     background-attachment: fixed;
@@ -35,7 +35,7 @@ body
 		<div class="col-sm-9">
 			<table class="table table-responsive">
 				<tr>
-					<td style="color: black"><h4><strong>{{f.forum_id}}</strong></h4></td>
+					<td style="color: black"><strong>{{f.forum_id}}</strong></td>
 				</tr>
 				<tr>
 					<td data-ng-if="f.status == 'A'" style="color: black">STATUS - Accepted</td>

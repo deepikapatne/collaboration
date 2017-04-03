@@ -30,6 +30,7 @@ app.controller('BlogController', function($scope,$location,BlogService)
 		(
 				function(response)
 				{
+					alert("Blog Added. Waiting for admin approval")
 					console.log("Add Blog Success "+response.status)
 					$location.path("/viewBlogs")
 				}
@@ -61,7 +62,7 @@ app.controller('BlogController', function($scope,$location,BlogService)
 					$scope.blogComments = response;
 				}
 		);
-		$location.path("/viewBlogs")
+		$location.path("/viewBlog")
 	}
 	
 	this.addComment = addComment
