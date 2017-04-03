@@ -57,7 +57,7 @@ public class FileUploadController
          	try
          	{
          		//change the path according to your workspace and the name of your project
-         		String path="D:/Collaboration workspace/CollaborationFrontEnd/WebContent/images/"+username;
+         		String path="C:/myspace/collaboration workspace/CollaborationFrontEnd/WebContent/images/"+username;
          		File file=new File(path);
          		//file.mkdirs();
          		FileOutputStream fos = new FileOutputStream(file);
